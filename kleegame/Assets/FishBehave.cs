@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class FishBehave : MonoBehaviour
 {
-    private float limitTime = 2.0f;
-    private float timeCount;
-    public float fishSpeed = 3;
+    private float limitTime = 2.0f; // 方向を変える時間
+    private float timeCount; 
+    public float fishSpeed = 3; //魚の速さ
+    public float escape_probability = 0.5f; //プレイヤーに気づき逃げる確率
     Vector3 direction; //moveの進行方向
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,9 +21,15 @@ public class FishBehave : MonoBehaviour
     {
         timeCount += Time.deltaTime;
         FishMove();
+        //魚が画面外へ移動移動した場合、timeCountを0に戻して、向きを反転させる
+        if (transform.position.x < -9 || 9 < transform.position.x || transform.position.y < -4 || 4 < transform.position.y)
+        {
+            direction = Turn(direction);
+        }
+
         //一定の時間が経過したら移動方向を変更する
         //limitTimeかtimeCountをランダムにして、方向の変更にランダム性を持たせてもいいかも
-        if(timeCount > limitTime)
+        if (timeCount > limitTime)
         {
             direction = NormalMoveDestination();
             timeCount = 0;
@@ -58,4 +66,19 @@ public class FishBehave : MonoBehaviour
     {
         return new Vector3(0, 0, 0); //仮
     }
+
+    //テスト
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log(collision.gameObject.name);
+    }
+
+    //画面外にいかないようにする
+    Vector3 Turn(Vector3 vec)
+    {
+        //上下左右を反転させる
+        Vector3 rev = Vector3.Reflect(vec, Vector3.up);
+        return Vector3.Reflect(rev, Vector3.right);
+    }
+
 }

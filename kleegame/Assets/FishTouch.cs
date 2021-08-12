@@ -17,12 +17,13 @@ public class FishTouch : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.GetComponent<Collider2D>().tag == playerTag)
         {
-            Debug.Log("‹›‚ÌƒgƒŠƒK[‚Å‚·");
-            transform.root.gameObject.GetComponent<FishBehave>().FishDetect();
+            Debug.Log("‹›‚ÉG‚ê‚Ä‚¢‚Ü‚·");
+            GameObject game = collision.gameObject;
+            transform.root.gameObject.GetComponent<FishBehave>().FishDetect(game);
         }
     }
 }

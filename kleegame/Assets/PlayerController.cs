@@ -5,11 +5,11 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float speed;
-
+    public int getFIshNum;
     // Start is called before the first frame update
     void Start()
     {
-        
+        getFIshNum = 0;
     }
 
     // Update is called once per frame

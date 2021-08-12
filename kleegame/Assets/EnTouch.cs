@@ -24,7 +24,8 @@ public class EnTouch : MonoBehaviour
         if (collision.GetComponent<Collider2D>().tag == playerTag)
         {
             Debug.Log("â~ÇÃÉgÉäÉKÅ[Ç≈Ç∑");
-            transform.root.gameObject.GetComponent<FishBehave>().EnDetect();
+            Vector3 vec = collision.GetComponent<Collider2D>().transform.position;
+            transform.root.gameObject.GetComponent<FishBehave>().EnDetect(vec);
         }
     }
 }

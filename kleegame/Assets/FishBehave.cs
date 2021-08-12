@@ -6,8 +6,8 @@ public class FishBehave : MonoBehaviour
 {
     private float limitTime = 2.0f; // 方向を変える時間
     private float timeCount;
-    public float fishSpeed = 3; //魚の速さ
-    public float escape_probability = 0.5f; //プレイヤーに気づき逃げる確率
+    public float fishSpeed = 6; //魚の速さ
+    public float escape_probability = 0.2f; //プレイヤーに気づき逃げる確率
     Vector3 direction; //moveの進行方向
 
     // Start is called before the first frame update
@@ -20,7 +20,7 @@ public class FishBehave : MonoBehaviour
     void Update()
     {
         timeCount += Time.deltaTime;
-        FishMove();
+        FishMove(fishSpeed);
         //魚が画面外へ移動移動した場合、timeCountを0に戻して、向きを反転させる
         if (transform.position.x < -9 || 9 < transform.position.x || transform.position.y < -4 || 4 < transform.position.y)
         {
@@ -38,9 +38,9 @@ public class FishBehave : MonoBehaviour
     }
 
     //directionの方向へ魚を動かす
-    void FishMove()
+    void FishMove(float speed)
     {
-        transform.position += direction * Time.deltaTime * fishSpeed;
+        transform.position += direction * Time.deltaTime * speed;
     }
 
     //ランダムに移動先を決める
@@ -78,14 +78,25 @@ public class FishBehave : MonoBehaviour
 
     //EnTouchから呼び出される
     //プレイヤーと円が接触した時の処理を記述する
-    public void EnDetect()
+    public void EnDetect(Vector3 vector)
     {
-        Debug.Log("円がぶつかったため呼びだされました");
+        if (Random.value < escape_probability)
+        {
+            Vector3 myvec = transform.position;
+            direction = myvec - vector;
+        }   
     }
 
-    public void FishDetect()
+    //FishTouchから呼び出される
+    //プレイヤーが魚と接触したときの処理を記述する
+    public void FishDetect(GameObject game)
     {
-        Debug.Log("魚がぶつかったため呼び出されました");
+        if (Input.GetKey("f"))
+        {
+            Destroy(this.gameObject);
+            PlayerController playerController = game.GetComponent<PlayerController>();
+            playerController.getFIshNum++;
+        }
     }
 
 }

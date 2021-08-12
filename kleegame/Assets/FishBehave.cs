@@ -5,7 +5,7 @@ using UnityEngine;
 public class FishBehave : MonoBehaviour
 {
     private float limitTime = 2.0f; // 方向を変える時間
-    private float timeCount; 
+    private float timeCount;
     public float fishSpeed = 3; //魚の速さ
     public float escape_probability = 0.5f; //プレイヤーに気づき逃げる確率
     Vector3 direction; //moveの進行方向
@@ -67,18 +67,25 @@ public class FishBehave : MonoBehaviour
         return new Vector3(0, 0, 0); //仮
     }
 
-    //テスト
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        Debug.Log(collision.gameObject.name);
-    }
-
+ 
     //画面外にいかないようにする
     Vector3 Turn(Vector3 vec)
     {
         //上下左右を反転させる
         Vector3 rev = Vector3.Reflect(vec, Vector3.up);
         return Vector3.Reflect(rev, Vector3.right);
+    }
+
+    //EnTouchから呼び出される
+    //プレイヤーと円が接触した時の処理を記述する
+    public void EnDetect()
+    {
+        Debug.Log("円がぶつかったため呼びだされました");
+    }
+
+    public void FishDetect()
+    {
+        Debug.Log("魚がぶつかったため呼び出されました");
     }
 
 }

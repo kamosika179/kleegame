@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class timeCounter : MonoBehaviour
 {
@@ -23,7 +24,15 @@ public class timeCounter : MonoBehaviour
 
         if(countdown <= 0)
         {
+            RectTransform rect = text.GetComponent<RectTransform>();
+            rect.localPosition = new Vector3(50,0,0);
             text.text = "終了！";
+
+            //タイトル画面に戻る
+            if (countdown <= -10f)
+            {
+                SceneManager.LoadScene("TitleScene");
+            }
         }
     }
 }

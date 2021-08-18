@@ -95,7 +95,7 @@ public class FishBehave : MonoBehaviour
         {
             Destroy(this.gameObject);
             PlayerController playerController = game.GetComponent<PlayerController>();
-            playerController.getFIshNum++;
+            playerController.GetFish();
         }
     }
 

@@ -8,7 +8,7 @@ public class FishBehave : MonoBehaviour
     private float timeCount;
     public float fishSpeed = 6; //魚の速さ
     public float escape_probability = 0.2f; //プレイヤーに気づき逃げる確率
-    Vector3 direction; //moveの進行方向
+    public Vector3 direction; //moveの進行方向
 
     // Start is called before the first frame update
     void Start()

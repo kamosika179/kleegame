@@ -9,10 +9,13 @@ public class PlayerController : MonoBehaviour
     public int getFIshNum;
     public Text score;
 
+    AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
         getFIshNum = 0;
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -28,6 +31,7 @@ public class PlayerController : MonoBehaviour
     public void GetFish()
     {
         getFIshNum++;
+        audioSource.Play();
         score.text = "Score:" + getFIshNum.ToString();
         
     }
